@@ -1,4 +1,5 @@
 import json
+import  random
 flag=1
 cache={}
 class userFunctions:
@@ -69,6 +70,13 @@ class userFunctions:
         pathdata=json.loads(content)
         fr.close()
         return pathdata[key]
+    def createJson(self):
+        s = dict()
+        d = ["red", "black", "blue", "yellow", "voilet", "orange", "indigo", "green", "white", "purple", "brown",
+                 "pink"]
+        for i in range(50):
+            s[i] = random.choice(d)
+        return json.dumps(s)
     def delete(self,key):
         if self.Ispresent(key):
             path=self.getPath(key)
@@ -97,7 +105,7 @@ while flag:
     if userChoice==1:
         key=input("Enter Key name:")
         if obj.Ispresent(key)==0:
-            data=input("Enter Value in the form of Object:")
+            data=obj.createJson()
             path=input("Enter the path of file (optional):")
             data=json.loads(data)
             if path=='':

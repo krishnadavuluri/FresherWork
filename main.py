@@ -23,7 +23,7 @@ class userFunctions:
         print("Created successfully!")
         fr.close()
         self.cache(key,path)
-    def cache(self,key,path):
+    def cache(self,key,path):#stores the path of particular key
         fr=open('cache.txt','r')
         content=fr.read()
         if content == "":
@@ -51,33 +51,33 @@ class userFunctions:
         else:
             return 0
         fr.close()
-    def read(self,key):
-        if self.Ispresent(key):
+    def read(self,key):#user read request
+        if self.Ispresent(key):#checks is key is present or not
             path=self.getPath(key)
             #print(path)
             print("JSON Data for Requested key is:",self.getJson(path,key))
         else:
             print("Invalid Key! No such key exists")
-    def getJson(self,path,key):
+    def getJson(self,path,key):#getting JSON Data for user read request
         fr=open(path,'r')
         content=fr.read()
         data=json.loads(content)
         fr.close()
         return data[key]
-    def getPath(self,key):
+    def getPath(self,key):#Getting path of key
         fr = open('cache.txt', 'r')
         content = fr.read()
         pathdata=json.loads(content)
         fr.close()
         return pathdata[key]
-    def createJson(self):
+    def createJson(self):#Generating random json
         s = dict()
         d = ["red", "black", "blue", "yellow", "voilet", "orange", "indigo", "green", "white", "purple", "brown",
                  "pink"]
-        for i in range(50):
+        for i in range(10):
             s[i] = random.choice(d)
         return json.dumps(s)
-    def delete(self,key):
+    def delete(self,key):#User delete request
         if self.Ispresent(key):
             path=self.getPath(key)
             fr = open(path, 'r')
@@ -96,7 +96,7 @@ class userFunctions:
             print("Deleted Successfully!")
         else:
             print("Invalid key! No such key exists")
-obj=userFunctions()
+obj=userFunctions() #creating object of class
 while flag:
     print("PRESS '1' TO CREATE")
     print("PRESS '2' TO READ")
@@ -104,7 +104,7 @@ while flag:
     userChoice=int(input("ENTER YOUR CHOICE:"))
     if userChoice==1:
         key=input("Enter Key name:")
-        if obj.Ispresent(key)==0:
+        if obj.Ispresent(key)==0:#checks if key is already present or not
             data=obj.createJson()
             path=input("Enter the path of file (optional):")
             data=json.loads(data)
